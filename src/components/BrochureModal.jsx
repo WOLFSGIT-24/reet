@@ -53,26 +53,22 @@ export default function BrochureModal({ isOpen, onClose, project }) {
     }
   };
 
-  const [errorMessage, setErrorMessage] = useState('');
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
     const cleanName = name.trim();
     const cleanPhone = phone.trim();
     const cleanEmail = email.trim();
 
-    if (!cleanName || cleanName.length < 2) {
-      setErrorMessage('Please enter your full name (letters only).');
+    if (cleanName.length < 2) {
+      alert('Please enter a valid name using letters only.');
       return;
     }
-    if (!cleanPhone || cleanPhone.length !== 10) {
-      setErrorMessage('Please enter a valid 10-digit mobile number.');
+    if (cleanPhone.length !== 10) {
+      alert('Please enter a valid 10-digit mobile number.');
       return;
     }
-    const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
-    if (!cleanEmail || !emailRegex.test(cleanEmail)) {
-      setErrorMessage('Please enter a valid email address.');
+    if (!cleanEmail) {
+      alert('Please enter your email address.');
       return;
     }
 
@@ -102,7 +98,6 @@ export default function BrochureModal({ isOpen, onClose, project }) {
     setName('');
     setPhone('');
     setEmail('');
-    setErrorMessage('');
     setSubmitted(false);
     setSubmitting(false);
     onClose();
@@ -196,20 +191,6 @@ export default function BrochureModal({ isOpen, onClose, project }) {
               Enter your details below to instantly unlock and download the complete project dossier, master plan & floor layouts.
             </p>
 
-            {errorMessage && (
-              <div style={{
-                background: 'rgba(239, 68, 68, 0.12)',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
-                color: '#f87171',
-                padding: '10px 14px',
-                borderRadius: 'var(--radius-sm)',
-                fontSize: '0.85rem',
-                marginBottom: '16px'
-              }}>
-                {errorMessage}
-              </div>
-            )}
-
             <form onSubmit={handleSubmit}>
               <div className="form-field">
                 <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--muted)', marginBottom: '6px', fontWeight: 500 }}>
@@ -295,7 +276,7 @@ export default function BrochureModal({ isOpen, onClose, project }) {
                 style={{ width: '100%', padding: '13px 20px', fontSize: '0.94rem' }}
                 disabled={submitting}
               >
-                {submitting ? 'Downloading...' : 'Download brochure'}
+                {submitting ? 'Submitting & Unlocking...' : 'Download Brochure'}
               </button>
             </form>
           </div>
