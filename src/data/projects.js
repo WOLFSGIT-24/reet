@@ -100,7 +100,7 @@ export const PROJECTS_DATA = [
     groupPriceMin: 1.49,
     groupPriceMax: 1.49,
     minGroupPill: 'Min. group: 4 villas',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop'
+    image: '/Globus Luxury Villas.jpg'
   },
   {
     id: 'acasa-by-simchah',

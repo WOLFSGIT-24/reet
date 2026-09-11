@@ -6,7 +6,6 @@ export default function ContactFormSection() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [unitType, setUnitType] = useState('3 BHK');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -51,7 +50,6 @@ export default function ContactFormSection() {
                 </p>
 
                 <div className="success-summary">
-                  <div><span>Configuration:</span> <b>{unitType}</b></div>
                   <div><span>Direct Desk:</span> <b className="gold">Sunny Sahay (+91 91824 19241)</b></div>
                 </div>
 
@@ -90,29 +88,14 @@ export default function ContactFormSection() {
                   </div>
                 </div>
 
-                <div className="form-row-2">
-                  <div className="form-field">
-                    <label>Email Address</label>
-                    <input 
-                      type="email" 
-                      placeholder="name@example.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="form-field">
-                    <label>Preferred Configuration</label>
-                    <select 
-                      value={unitType} 
-                      onChange={(e) => setUnitType(e.target.value)}
-                    >
-                      <option value="3 BHK">3 BHK</option>
-                      <option value="4 BHK">4 BHK</option>
-                      <option value="Luxury Villa">Luxury Villa</option>
-                      <option value="Flexible">Flexible / Open</option>
-                    </select>
-                  </div>
+                <div className="form-field">
+                  <label>Email Address</label>
+                  <input 
+                    type="email" 
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
 
                 <div className="form-field">
