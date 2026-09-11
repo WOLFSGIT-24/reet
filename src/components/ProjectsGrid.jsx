@@ -23,7 +23,14 @@ export default function ProjectsGrid({ onSelectProjectAction }) {
           {PROJECTS_DATA.map((project) => (
             <div key={project.id} className="card">
               <div className="card-img-wrap">
-                <img src={project.image} alt={project.title} />
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="330"
+                />
               </div>
               <div className="card-body">
                 <div className="card-loc">{project.location}</div>
@@ -42,13 +49,25 @@ export default function ProjectsGrid({ onSelectProjectAction }) {
                 <div className="card-action-row">
                   <span className="save-pill">{project.minGroupPill}</span>
                   <div className="card-btns">
-                    <a 
-                      href="#contact-form"
-                      className="card-brochure-btn"
-                      onClick={(e) => handleClick(e, project, 'brochure')}
-                    >
-                      Download brochure
-                    </a>
+                    {project.brochurePdf ? (
+                      <a 
+                        href={project.brochurePdf}
+                        {...(!project.brochurePdf.startsWith('http') ? { download: true } : {})}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="card-brochure-btn"
+                      >
+                        Download brochure
+                      </a>
+                    ) : (
+                      <a 
+                        href="#contact-form"
+                        className="card-brochure-btn"
+                        onClick={(e) => handleClick(e, project, 'brochure')}
+                      >
+                        Download brochure
+                      </a>
+                    )}
                     <a 
                       href="#contact-form"
                       className="card-cta-btn"

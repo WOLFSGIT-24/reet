@@ -1,7 +1,11 @@
 // Dataset for REET Spaces Group-Buy Projects in Hyderabad (Exact Match to Original Source)
+import cinqImg from '../assets/cinq.webp';
 import theCascadesImg from '../assets/the-cascades.webp';
 import aviraImg from '../assets/avira.webp';
-import altusImg from '../assets/altus.jpg';
+import altusImg from '../assets/altus.webp';
+import linqImg from '../assets/linq.webp';
+import haloImg from '../assets/halo.webp';
+import acasaImg from '../assets/acasa.webp';
 
 export const PROJECTS_DATA = [
   {
@@ -16,7 +20,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 3.50,
     groupPriceMax: 4.20,
     minGroupPill: 'Min. group: 4 buyers',
-    image: 'https://cinqbyraghava.in/images/banner/banner.webp'
+    image: cinqImg,
+    brochurePdf: 'https://drive.google.com/file/d/1YIjsqqlxG2GlabBiXCdSdKOnwdyYge1m/view?usp=sharing'
   },
   {
     id: 'the-cascades-neopolis',
@@ -30,7 +35,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 2.64,
     groupPriceMax: 5.10,
     minGroupPill: 'Min. group: 4 buyers',
-    image: theCascadesImg
+    image: theCascadesImg,
+    brochurePdf: 'https://drive.google.com/file/d/1Qu_E5v9dxlZnk9WVDfJYDXUnaTNEGZc1/view?usp=sharing'
   },
   {
     id: 'avira-by-avr',
@@ -44,7 +50,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 1.85,
     groupPriceMax: 2.25,
     minGroupPill: 'Min. group: 4 buyers',
-    image: aviraImg
+    image: aviraImg,
+    brochurePdf: 'https://drive.google.com/file/d/1aJAN1TjZwE3ihDPfprn3QfLu90M8U5FD/view?usp=sharing'
   },
   {
     id: 'altus-by-hallmark',
@@ -58,7 +65,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 1.39,
     groupPriceMax: 5.10,
     minGroupPill: 'Min. group: 4 buyers',
-    image: altusImg
+    image: altusImg,
+    brochurePdf: 'https://drive.google.com/file/d/1f59I9fCrx0u5WJNJbeCp7auiC_TZqG8Y/view?usp=drive_link'
   },
   {
     id: 'linq-by-raghava',
@@ -72,7 +80,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 1.65,
     groupPriceMax: 2.30,
     minGroupPill: 'Min. group: 4 buyers',
-    image: 'https://static.squareyards.com/resources/images/hyderabad/project-image/raghava-linq-project-project-large-image1-5544-opt-5bb4d9d3-6afd-4d41-9818-3dd3b0bd44cd.jpg'
+    image: linqImg,
+    brochurePdf: 'https://drive.google.com/file/d/1VmCd4WBJ1zQKY1-siwb1f7eJ2NeansQl/view?usp=sharing'
   },
   {
     id: 'halo-by-raghava',
@@ -86,7 +95,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 1.40,
     groupPriceMax: 2.00,
     minGroupPill: 'Min. group: 4 buyers',
-    image: 'https://static.squareyards.com/resources/images/hyderabad/project-image/raghava-halo-project-project-large-image1-8581-opt-8a29154b-d1ae-4b32-9f1e-141ee067a08d.jpg'
+    image: haloImg,
+    brochurePdf: 'https://drive.google.com/file/d/11Q2_d7HFjzky3PEUKDM5pDhG1ZKuNfY1/view?usp=sharing'
   },
   {
     id: 'globus-luxury-villas',
@@ -100,7 +110,7 @@ export const PROJECTS_DATA = [
     groupPriceMin: 1.49,
     groupPriceMax: 1.49,
     minGroupPill: 'Min. group: 4 villas',
-    image: '/Globus Luxury Villas.jpg'
+    image: '/Globus Luxury Villas.webp'
   },
   {
     id: 'acasa-by-simchah',
@@ -114,7 +124,8 @@ export const PROJECTS_DATA = [
     groupPriceMin: 3.90,
     groupPriceMax: 4.55,
     minGroupPill: 'Min. group: 4 buyers',
-    image: 'https://static.squareyards.com/resources/images/hyderabad/project-image/simchah-acasa-project-project-large-image1-3411.jpg'
+    image: acasaImg,
+    brochurePdf: 'https://drive.google.com/file/d/1Vv4ezR_tFA8gsqg1ka4RDFpNc9tG3T9l/view?usp=drive_link'
   }
 ];
 

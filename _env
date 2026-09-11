@@ -1,0 +1,3 @@
+VITE_TRANQUIL_API_KEY=TRNQUILCRMreetinfra
+VITE_TRANQUIL_BASE_URL=https://reetinfra.tranquilcrmone.in/v2/createlead
+VITE_SHEET_WEBHOOK_URL=https://script.google.com/macros/s/AKfycbyP5rBieUgEHjyr2AAba8SqG2hxIUt98H9UbojHDSHH1NoX9VAvrayqm_yOVIMx-yuS/exec

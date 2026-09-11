@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../assets/reet-logo.png';
+import logoImg from '../assets/reet-logo.webp';
 
 export default function Footer() {
   return (
