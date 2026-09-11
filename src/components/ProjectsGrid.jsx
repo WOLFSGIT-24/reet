@@ -1,7 +1,7 @@
 import React from 'react';
 import { PROJECTS_DATA } from '../data/projects';
 
-export default function ProjectsGrid({ onOpenJoinModal }) {
+export default function ProjectsGrid({ onOpenJoinModal, onOpenBrochureModal }) {
   return (
     <section className="section" id="projects">
       <div className="wrap">
@@ -34,12 +34,20 @@ export default function ProjectsGrid({ onOpenJoinModal }) {
                 </div>
                 <div className="card-action-row">
                   <span className="save-pill">{project.minGroupPill}</span>
-                  <button 
-                    className="card-cta-btn"
-                    onClick={() => onOpenJoinModal(project)}
-                  >
-                    Join group
-                  </button>
+                  <div className="card-btns">
+                    <button 
+                      className="card-brochure-btn"
+                      onClick={() => onOpenBrochureModal ? onOpenBrochureModal(project) : onOpenJoinModal(project)}
+                    >
+                      Download brochure
+                    </button>
+                    <button 
+                      className="card-cta-btn"
+                      onClick={() => onOpenJoinModal(project)}
+                    >
+                      Join group
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

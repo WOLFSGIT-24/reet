@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
 
         <p className="fine">
-          Prices and group terms shown are indicative and drawn from developer price lists current as of Sept 2026; they are subject to unit availability and change without notice. REET Spaces acts as a group-buying facilitator between buyers and developers — every purchase is executed directly between the buyer and the respective developer. RERA registration details for each project available on request.
+          Prices and group terms shown are indicative and drawn from developer price lists current as of Sept 2026; they are subject to unit availability and change without notice. REET Spaces acts as a group-buying facilitator between buyers and developers. Every purchase is executed directly between the buyer and the respective developer. RERA registration details for each project available on request.
         </p>
       </div>
     </footer>

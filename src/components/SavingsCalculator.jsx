@@ -51,7 +51,7 @@ export default function SavingsCalculator({ onOpenJoinModal }) {
               >
                 {PROJECTS_DATA.map(p => (
                   <option key={p.id} value={p.id}>
-                    {p.title} ({p.location}) — {p.type}
+                    {p.title} ({p.location}) | {p.type}
                   </option>
                 ))}
               </select>

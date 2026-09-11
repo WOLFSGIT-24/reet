@@ -11,9 +11,17 @@ import './App.css';
 export default function App() {
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [selectedProjectForJoin, setSelectedProjectForJoin] = useState(null);
+  const [modalMode, setModalMode] = useState('join');
 
   const handleOpenJoinModal = (project = null) => {
     setSelectedProjectForJoin(project);
+    setModalMode('join');
+    setJoinModalOpen(true);
+  };
+
+  const handleOpenBrochureModal = (project = null) => {
+    setSelectedProjectForJoin(project);
+    setModalMode('brochure');
     setJoinModalOpen(true);
   };
 
@@ -28,18 +36,22 @@ export default function App() {
       
       <main>
         <Hero onOpenJoinModal={handleOpenJoinModal} />
-        <ProjectsGrid onOpenJoinModal={handleOpenJoinModal} />
+        <ProjectsGrid 
+          onOpenJoinModal={handleOpenJoinModal} 
+          onOpenBrochureModal={handleOpenBrochureModal}
+        />
         <ProcessSection />
         <ContactFormSection />
       </main>
 
       <Footer />
 
-      {/* Join Group Modal */}
+      {/* Group & Brochure Modal */}
       <JoinGroupModal 
         isOpen={joinModalOpen} 
         onClose={handleCloseJoinModal} 
         defaultProject={selectedProjectForJoin} 
+        mode={modalMode}
       />
     </div>
   );

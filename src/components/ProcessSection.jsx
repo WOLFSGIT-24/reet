@@ -8,7 +8,7 @@ export default function ProcessSection() {
         <div className="section-head">
           <h2>How a REET group closes</h2>
           <p>
-            Same shortlist-to-savings flow buyers already trust from group-buying platforms — run by REET's channel-partner desk instead of a marketplace.
+            Same shortlist-to-savings flow buyers already trust from group-buying platforms, run by REET's channel-partner desk instead of a marketplace.
           </p>
         </div>
 

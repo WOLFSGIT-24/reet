@@ -1,4 +1,4 @@
-/* REET Spaces — Responsive Luxury Design & Micro-Interactions */
+/* REET Spaces | Responsive Luxury Design & Micro-Interactions */
 
 /* ---- Header & Navigation ---- */
 header {
@@ -541,6 +541,37 @@ header {
   border-color: var(--teal-bright);
 }
 
+.card-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-brochure-btn {
+  border: 1px solid var(--line-strong);
+  color: var(--paper);
+  background: rgba(244, 241, 234, 0.04);
+  padding: 7px 13px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  min-height: 34px;
+}
+
+.card-brochure-btn:hover {
+  background: rgba(244, 241, 234, 0.12);
+  border-color: var(--paper);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.card-brochure-btn:active {
+  transform: translateY(0);
+}
+
 .card-cta-btn {
   border: 1px solid var(--brass);
   color: var(--brass-bright);
@@ -564,6 +595,24 @@ header {
 
 .card-cta-btn:active {
   transform: translateY(0);
+}
+
+@media (max-width: 540px) {
+  .card-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .card-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .card-brochure-btn, .card-cta-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
 }
 
 /* ---- Process Section ---- */

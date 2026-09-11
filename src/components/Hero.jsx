@@ -8,12 +8,12 @@ export default function Hero({ onOpenJoinModal }) {
 
         <h1>
           The price a channel<br />
-          partner gets — now<br />
+          partner gets, now<br />
           yours to share.
         </h1>
 
         <p className="lede">
-          REET Spaces pools verified buyers into purchase groups for Hyderabad's strongest new launches — turning our channel-partner leverage with developers into a price advantage you can actually see, upfront.
+          REET Spaces pools verified buyers into purchase groups for Hyderabad's strongest new launches, turning our channel-partner leverage with developers into a price advantage you can actually see, upfront.
         </p>
 
         <div className="hero-stats">
@@ -26,7 +26,7 @@ export default function Hero({ onOpenJoinModal }) {
             <span>buyers unlocks group pricing</span>
           </div>
           <div className="stat">
-            <b>₹1.4Cr–5.1Cr</b>
+            <b>₹1.4Cr to ₹5.1Cr</b>
             <span>price range across projects</span>
           </div>
         </div>

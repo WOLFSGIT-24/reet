@@ -63,7 +63,7 @@ export default function WhyReetSection() {
                 <td style={{ padding: '14px', color: 'var(--paper)' }}>Pricing Tier</td>
                 <td style={{ padding: '14px', color: 'var(--muted)' }}>Standard builder rack rate</td>
                 <td style={{ padding: '14px', color: 'var(--brass-bright)', fontWeight: '600' }}>
-                  Institutional volume slab (Save ₹10L–₹86L)
+                  Institutional volume slab (Save ₹10L to ₹86L)
                 </td>
               </tr>
               <tr style={{ borderBottom: '1px solid var(--line)' }}>
@@ -75,7 +75,7 @@ export default function WhyReetSection() {
               </tr>
               <tr style={{ borderBottom: '1px solid var(--line)' }}>
                 <td style={{ padding: '14px', color: 'var(--paper)' }}>Facilitation & Brokerage Fee</td>
-                <td style={{ padding: '14px', color: 'var(--muted)' }}>Often 1% – 2% requested by local brokers</td>
+                <td style={{ padding: '14px', color: 'var(--muted)' }}>Often 1% to 2% requested by local brokers</td>
                 <td style={{ padding: '14px', color: 'var(--brass-bright)', fontWeight: '600' }}>
                   ₹0 (100% Free for buyers)
                 </td>
