@@ -5,54 +5,31 @@ import ProjectsGrid from './components/ProjectsGrid';
 import ProcessSection from './components/ProcessSection';
 import ContactFormSection from './components/ContactFormSection';
 import Footer from './components/Footer';
-import JoinGroupModal from './components/JoinGroupModal';
 import './App.css';
 
 export default function App() {
-  const [joinModalOpen, setJoinModalOpen] = useState(false);
-  const [selectedProjectForJoin, setSelectedProjectForJoin] = useState(null);
-  const [modalMode, setModalMode] = useState('join');
+  const [selectedAction, setSelectedAction] = useState(null);
 
-  const handleOpenJoinModal = (project = null) => {
-    setSelectedProjectForJoin(project);
-    setModalMode('join');
-    setJoinModalOpen(true);
-  };
-
-  const handleOpenBrochureModal = (project = null) => {
-    setSelectedProjectForJoin(project);
-    setModalMode('brochure');
-    setJoinModalOpen(true);
-  };
-
-  const handleCloseJoinModal = () => {
-    setJoinModalOpen(false);
-    setSelectedProjectForJoin(null);
+  const handleSelectProjectAction = (project, actionType) => {
+    setSelectedAction({ project, type: actionType, timestamp: Date.now() });
+    const el = document.getElementById('contact-form');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className="app-container">
-      <Navbar onOpenJoinModal={handleOpenJoinModal} />
+      <Navbar />
       
       <main>
-        <Hero onOpenJoinModal={handleOpenJoinModal} />
-        <ProjectsGrid 
-          onOpenJoinModal={handleOpenJoinModal} 
-          onOpenBrochureModal={handleOpenBrochureModal}
-        />
+        <Hero />
+        <ProjectsGrid onSelectProjectAction={handleSelectProjectAction} />
         <ProcessSection />
-        <ContactFormSection />
+        <ContactFormSection selectedAction={selectedAction} />
       </main>
 
       <Footer />
-
-      {/* Group & Brochure Modal */}
-      <JoinGroupModal 
-        isOpen={joinModalOpen} 
-        onClose={handleCloseJoinModal} 
-        defaultProject={selectedProjectForJoin} 
-        mode={modalMode}
-      />
     </div>
   );
 }

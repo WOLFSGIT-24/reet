@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PROJECTS_DATA } from '../data/projects';
 
-export default function ContactFormSection() {
-  const [projectId, setProjectId] = useState(PROJECTS_DATA[0].id);
+export default function ContactFormSection({ selectedAction }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const nameInputRef = useRef(null);
 
-  const currentProject = PROJECTS_DATA.find(p => p.id === projectId) || PROJECTS_DATA[0];
+  useEffect(() => {
+    if (selectedAction && selectedAction.project) {
+      const { project, type } = selectedAction;
+      if (type === 'brochure') {
+        setMessage(`Requesting brochure & floor plans for ${project.title} (${project.location}).`);
+      } else {
+        setMessage(`Interested in joining group deal for ${project.title} (${project.location}).`);
+      }
+      if (nameInputRef.current) {
+        nameInputRef.current.focus();
+      }
+    }
+  }, [selectedAction]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,6 +80,7 @@ export default function ContactFormSection() {
                   <div className="form-field">
                     <label>Full Name *</label>
                     <input 
+                      ref={nameInputRef}
                       type="text" 
                       required 
                       placeholder="Your Name"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import logoImg from '../assets/reet-logo.png';
 
-export default function Navbar({ onOpenJoinModal }) {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -21,12 +21,12 @@ export default function Navbar({ onOpenJoinModal }) {
             <a href="#contact">Talk to us</a>
           </nav>
 
-          <button 
+          <a 
+            href="#contact-form"
             className="navcta"
-            onClick={() => onOpenJoinModal(null)}
           >
             Join a group
-          </button>
+          </a>
 
           <button 
             className="mobile-menu-btn"
@@ -43,18 +43,16 @@ export default function Navbar({ onOpenJoinModal }) {
         <div className="mobile-navlinks">
           <a href="#projects" onClick={() => setMobileMenuOpen(false)}>Group Deals</a>
           <a href="#process" onClick={() => setMobileMenuOpen(false)}>How it works</a>
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Talk to us</a>
+          <a href="#contact-form" onClick={() => setMobileMenuOpen(false)}>Talk to us</a>
         </div>
-        <button 
+        <a 
+          href="#contact-form"
           className="navcta" 
           style={{ width: '100%', textAlign: 'center', padding: '12px' }}
-          onClick={() => {
-            setMobileMenuOpen(false);
-            onOpenJoinModal(null);
-          }}
+          onClick={() => setMobileMenuOpen(false)}
         >
           Join a group
-        </button>
+        </a>
       </div>
     </>
   );
