@@ -20,7 +20,7 @@ export const PROJECTS_DATA = [
     groupPriceMin: 3.50,
     groupPriceMax: 4.20,
     minGroupPill: 'Min. group: 4 buyers',
-    image: cinqImg,
+    image: '/CINQ by Raghava.webp',
     brochurePdf: 'https://drive.google.com/file/d/1YIjsqqlxG2GlabBiXCdSdKOnwdyYge1m/view?usp=sharing'
   },
   {
