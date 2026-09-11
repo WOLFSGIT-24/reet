@@ -26,9 +26,31 @@ export default function ContactFormSection({ selectedAction }) {
     }
   }, [selectedAction]);
 
+  const handleNameChange = (e) => {
+    // Only alphabets, spaces, apostrophes, and dots
+    const val = e.target.value.replace(/[^a-zA-Z\s'.]/g, '');
+    setName(val);
+  };
+
+  const handlePhoneChange = (e) => {
+    // Only numeric digits, max 10 characters
+    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setPhone(val);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    const cleanName = name.trim();
+    const cleanPhone = phone.trim();
+
+    if (cleanName.length < 2) {
+      alert('Please enter a valid name with letters only.');
+      return;
+    }
+    if (cleanPhone.length !== 10) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
 
     setSubmitting(true);
     setSubmitError(false);
@@ -37,8 +59,8 @@ export default function ContactFormSection({ selectedAction }) {
     const projectTitle = selectedAction?.project?.title ?? '';
 
     await submitLead({
-      name:         name.trim(),
-      phone:        phone.trim(),
+      name:         cleanName,
+      phone:        cleanPhone,
       email:        email.trim(),
       message:      message.trim(),
       projectTitle,
@@ -80,7 +102,7 @@ export default function ContactFormSection({ selectedAction }) {
                 <div className="success-badge">Request Registered</div>
                 <h3>Thank you, {name}</h3>
                 <p>
-                  Your inquiry has been received. Sunny Sahay will reach out directly on <b>{phone}</b> to discuss shortlisted projects and active group lock terms.
+                  Your inquiry has been received. Sunny Sahay will reach out directly on <b>+91 {phone}</b> to discuss shortlisted projects and active group lock terms.
                 </p>
 
                 <div className="success-summary">
@@ -105,9 +127,11 @@ export default function ContactFormSection({ selectedAction }) {
                       ref={nameInputRef}
                       type="text" 
                       required 
-                      placeholder="Your Name"
+                      placeholder="Your Name (letters only)"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={handleNameChange}
+                      pattern="^[a-zA-Z\s'.]{2,50}$"
+                      title="Please enter your name using letters only (minimum 2 characters)"
                     />
                   </div>
 
@@ -115,10 +139,14 @@ export default function ContactFormSection({ selectedAction }) {
                     <label>Mobile Number *</label>
                     <input 
                       type="tel" 
+                      inputMode="numeric"
                       required 
-                      placeholder="+91 XXXXX XXXXX"
+                      placeholder="10-digit mobile number"
+                      maxLength={10}
+                      pattern="^[0-9]{10}$"
+                      title="Please enter exactly 10 digits"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={handlePhoneChange}
                     />
                   </div>
                 </div>
@@ -130,6 +158,8 @@ export default function ContactFormSection({ selectedAction }) {
                     placeholder="name@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                    title="Please enter a valid email address (e.g. name@example.com)"
                   />
                 </div>
 

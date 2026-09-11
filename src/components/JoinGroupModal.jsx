@@ -59,15 +59,35 @@ Thank you for requesting this brochure via REET Spaces.
     URL.revokeObjectURL(url);
   };
 
+  const handleNameChange = (e) => {
+    const val = e.target.value.replace(/[^a-zA-Z\s'.]/g, '');
+    setName(val);
+  };
+
+  const handlePhoneChange = (e) => {
+    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setPhone(val);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    const cleanName = name.trim();
+    const cleanPhone = phone.trim();
+
+    if (cleanName.length < 2) {
+      alert('Please enter a valid name with letters only.');
+      return;
+    }
+    if (cleanPhone.length !== 10) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
 
     setSubmitting(true);
 
     await submitLead({
-      name:         name.trim(),
-      phone:        phone.trim(),
+      name:         cleanName,
+      phone:        cleanPhone,
       email:        email.trim(),
       message:      `${isBrochure ? 'Brochure request' : 'Group join interest'} — ${currentProject.title} (${currentProject.location})`,
       projectTitle: currentProject.title,
@@ -118,35 +138,31 @@ Thank you for requesting this brochure via REET Spaces.
             </div>
 
             <h3 style={{ fontSize: '1.6rem', marginBottom: '12px' }}>
-              {isBrochure ? 'Brochure Ready & Downloaded' : 'Group Interest Registered'}
+              {isBrochure ? 'Brochure Sent & Downloaded!' : 'Group Interest Registered!'}
             </h3>
-            <p style={{ color: 'var(--muted)', fontSize: '0.94rem', lineHeight: '1.5', marginBottom: '24px' }}>
-              {isBrochure ? (
-                <>Thank you, <b>{name}</b>. The official project overview for <b>{currentProject.title}</b> has been downloaded. Our team will also WhatsApp you high-res unit layout plans on <b>{phone}</b>.</>
-              ) : (
-                <>Thank you, <b>{name}</b>. Your interest for <b>{currentProject.title}</b> has been received. Sunny Sahay will reach out shortly with unit availability and group lock terms.</>
-              )}
+            <p style={{ color: 'var(--muted)', fontSize: '0.94rem', lineHeight: '1.55', marginBottom: '20px' }}>
+              Thank you, <b>{name}</b>. Sunny Sahay will reach out directly on <b>+91 {phone}</b> to share current group allocation and lock your developer pricing.
             </p>
 
-            <div style={{ 
-              background: 'rgba(244, 241, 234, 0.03)', 
-              border: '1px solid var(--line)', 
-              padding: '16px', 
-              borderRadius: '2px',
+            <div style={{
+              background: 'var(--ink-surface)',
+              border: '1px solid var(--line)',
+              borderRadius: 'var(--radius-sm)',
+              padding: '16px',
               marginBottom: '24px',
               textAlign: 'left',
               fontSize: '0.88rem'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: 'var(--muted)' }}>Project:</span>
-                <b>{currentProject.title}</b>
+              <div style={{ marginBottom: '8px' }}>
+                <span style={{ color: 'var(--muted)' }}>Project: </span>
+                <b className="gold">{currentProject.title}</b>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: 'var(--muted)' }}>REET Group Price:</span>
-                <b style={{ color: 'var(--brass-bright)' }}>{currentProject.groupPrice}</b>
+              <div style={{ marginBottom: '8px' }}>
+                <span style={{ color: 'var(--muted)' }}>REET Locked Price: </span>
+                <b>{currentProject.groupPrice}</b>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--muted)' }}>Managing Partner:</span>
+              <div>
+                <span style={{ color: 'var(--muted)' }}>Direct Facilitation: </span>
                 <span>Sunny Sahay (+91 91824 19241)</span>
               </div>
             </div>
@@ -199,9 +215,11 @@ Thank you for requesting this brochure via REET Spaces.
                 <input 
                   type="text" 
                   required 
-                  placeholder="Your Name"
+                  placeholder="Your Name (letters only)"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleNameChange}
+                  pattern="^[a-zA-Z\s'.]{2,50}$"
+                  title="Please enter your name using letters only (minimum 2 characters)"
                 />
               </div>
 
@@ -209,10 +227,14 @@ Thank you for requesting this brochure via REET Spaces.
                 <label>Mobile Number *</label>
                 <input 
                   type="tel" 
+                  inputMode="numeric"
                   required 
-                  placeholder="+91 XXXXX XXXXX"
+                  placeholder="10-digit mobile number"
+                  maxLength={10}
+                  pattern="^[0-9]{10}$"
+                  title="Please enter exactly 10 digits"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={handlePhoneChange}
                 />
               </div>
 
@@ -223,6 +245,8 @@ Thank you for requesting this brochure via REET Spaces.
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                  title="Please enter a valid email address (e.g. name@example.com)"
                 />
               </div>
 

@@ -192,7 +192,7 @@ header {
   border-bottom: none;
   position: relative;
   background-image: 
-    linear-gradient(180deg, rgba(12, 13, 15, 0.58) 0%, rgba(12, 13, 15, 0.68) 45%, rgba(12, 13, 15, 0.82) 75%, var(--ink) 100%),
+    linear-gradient(180deg, rgba(12, 13, 15, 0.48) 0%, rgba(12, 13, 15, 0.58) 45%, rgba(12, 13, 15, 0.72) 75%, var(--ink) 100%),
     radial-gradient(circle at 75% 30%, rgba(184, 147, 74, 0.14) 0%, transparent 60%),
     url('/hero-bg.webp');
   background-size: cover;
