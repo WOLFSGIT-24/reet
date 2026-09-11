@@ -14,14 +14,13 @@ export default function Footer() {
               Flat - 502, 99RF+Q8J Huda,<br />
               Power Welfare Society, Narsingi,<br />
               Neknampur, Hyderabad,<br />
-              Telangana 500089
+              Telangana-500089
             </address>
           </div>
 
           <div className="fcol">
             <span><a href="#projects">Group Deals</a></span>
             <span><a href="#process">How it works</a></span>
-            <span><a href="#contact">Talk to us</a></span>
           </div>
 
           <div className="fcol">

@@ -49,25 +49,13 @@ export default function ProjectsGrid({ onSelectProjectAction }) {
                 <div className="card-action-row">
                   <span className="save-pill">{project.minGroupPill}</span>
                   <div className="card-btns">
-                    {project.brochurePdf ? (
-                      <a 
-                        href={project.brochurePdf}
-                        {...(!project.brochurePdf.startsWith('http') ? { download: true } : {})}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="card-brochure-btn"
-                      >
-                        Download brochure
-                      </a>
-                    ) : (
-                      <a 
-                        href="#contact-form"
-                        className="card-brochure-btn"
-                        onClick={(e) => handleClick(e, project, 'brochure')}
-                      >
-                        Download brochure
-                      </a>
-                    )}
+                    <button
+                      type="button"
+                      className="card-brochure-btn"
+                      onClick={(e) => handleClick(e, project, 'brochure')}
+                    >
+                      Download brochure
+                    </button>
                     <a 
                       href="#contact-form"
                       className="card-cta-btn"
