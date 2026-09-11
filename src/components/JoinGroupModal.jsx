@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Download, Check } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/projects';
+import { submitLead } from '../utils/submitLead';
 
 export default function JoinGroupModal({ isOpen, onClose, defaultProject, mode = 'join' }) {
   const [projectId, setProjectId] = useState(defaultProject ? defaultProject.id : PROJECTS_DATA[0].id);
@@ -8,6 +9,7 @@ export default function JoinGroupModal({ isOpen, onClose, defaultProject, mode =
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (defaultProject) {
@@ -57,17 +59,32 @@ Thank you for requesting this brochure via REET Spaces.
     URL.revokeObjectURL(url);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
+
+    setSubmitting(true);
+
+    await submitLead({
+      name:         name.trim(),
+      phone:        phone.trim(),
+      email:        email.trim(),
+      message:      `${isBrochure ? 'Brochure request' : 'Group join interest'} — ${currentProject.title} (${currentProject.location})`,
+      projectTitle: currentProject.title,
+      source:       isBrochure ? 'BrochureModal' : 'JoinGroupModal',
+    });
+
+    setSubmitting(false);
     setSubmitted(true);
-    if (mode === 'brochure') {
+
+    if (isBrochure) {
       handleDownloadBrochure();
     }
   };
 
   const handleReset = () => {
     setSubmitted(false);
+    setSubmitting(false);
     setName('');
     setPhone('');
     setEmail('');
@@ -213,8 +230,9 @@ Thank you for requesting this brochure via REET Spaces.
                 type="submit" 
                 className="btn-primary" 
                 style={{ width: '100%', padding: '13px 20px', fontSize: '0.94rem', marginTop: '10px' }}
+                disabled={submitting}
               >
-                {isBrochure ? 'Download Brochure' : 'Submit Interest'}
+                {submitting ? 'Submitting…' : (isBrochure ? 'Download Brochure' : 'Submit Interest')}
               </button>
             </form>
           </div>

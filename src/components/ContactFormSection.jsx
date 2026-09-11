@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { PROJECTS_DATA } from '../data/projects';
+import { submitLead } from '../utils/submitLead';
 
 export default function ContactFormSection({ selectedAction }) {
   const [name, setName] = useState('');
@@ -7,6 +8,8 @@ export default function ContactFormSection({ selectedAction }) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const nameInputRef = useRef(null);
 
   useEffect(() => {
@@ -23,14 +26,33 @@ export default function ContactFormSection({ selectedAction }) {
     }
   }, [selectedAction]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
+
+    setSubmitting(true);
+    setSubmitError(false);
+
+    // Extract project title from the pre-filled message if present
+    const projectTitle = selectedAction?.project?.title ?? '';
+
+    await submitLead({
+      name:         name.trim(),
+      phone:        phone.trim(),
+      email:        email.trim(),
+      message:      message.trim(),
+      projectTitle,
+      source:       'ContactForm',
+    });
+
+    setSubmitting(false);
     setSubmitted(true);
   };
 
   const handleReset = () => {
     setSubmitted(false);
+    setSubmitting(false);
+    setSubmitError(false);
     setName('');
     setPhone('');
     setEmail('');
@@ -124,8 +146,9 @@ export default function ContactFormSection({ selectedAction }) {
                 <button 
                   type="submit" 
                   className="form-submit-btn"
+                  disabled={submitting}
                 >
-                  Submit & Lock Group Tier
+                  {submitting ? 'Submitting…' : 'Submit & Lock Group Tier'}
                 </button>
               </form>
             )}
