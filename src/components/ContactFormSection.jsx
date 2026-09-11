@@ -52,23 +52,22 @@ export default function ContactFormSection({ selectedAction }) {
       return;
     }
 
-    setSubmitting(true);
-    setSubmitError(false);
-
     // Extract project title from the pre-filled message if present
     const projectTitle = selectedAction?.project?.title ?? '';
 
-    await submitLead({
+    // Instantly transition to registered confirmation
+    setSubmitted(true);
+    setSubmitting(false);
+
+    // Concurrently dispatch to CRM & Webhook
+    submitLead({
       name:         cleanName,
       phone:        cleanPhone,
       email:        email.trim(),
       message:      message.trim(),
       projectTitle,
       source:       'ContactForm',
-    });
-
-    setSubmitting(false);
-    setSubmitted(true);
+    }).catch((err) => console.error('Contact form submission error:', err));
   };
 
   const handleReset = () => {

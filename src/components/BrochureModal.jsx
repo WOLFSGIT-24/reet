@@ -72,26 +72,22 @@ export default function BrochureModal({ isOpen, onClose, project }) {
       return;
     }
 
-    setSubmitting(true);
-
-    try {
-      await submitLead({
-        name: cleanName,
-        phone: cleanPhone,
-        email: cleanEmail,
-        message: `Requested official brochure for ${project.title} (${project.location})`,
-        projectTitle: project.title,
-        source: 'BrochureDownloadPopup',
-      });
-    } catch (err) {
-      console.error('Lead submission error:', err);
-    }
-
-    setSubmitting(false);
-    setSubmitted(true);
-
-    // Automatically trigger brochure download / drive link
+    // Instantly trigger brochure download / open link
     triggerDownload();
+
+    // Instantly switch to success screen
+    setSubmitted(true);
+    setSubmitting(false);
+
+    // Fire webhook & CRM submission in background
+    submitLead({
+      name: cleanName,
+      phone: cleanPhone,
+      email: cleanEmail,
+      message: `Requested official brochure for ${project.title} (${project.location})`,
+      projectTitle: project.title,
+      source: 'BrochureDownloadPopup',
+    }).catch((err) => console.error('Lead submission error:', err));
   };
 
   const handleClose = () => {
@@ -131,7 +127,7 @@ export default function BrochureModal({ isOpen, onClose, project }) {
               Brochure Unlocked!
             </h3>
             <p style={{ color: 'var(--muted)', fontSize: '0.94rem', lineHeight: '1.55', marginBottom: '20px' }}>
-              Thank you, <b>{name}</b>. The official brochure for <b>{project.title}</b> is opening in a new tab. Our desk will also WhatsApp you full unit floor plans on <b>+91 {phone}</b>.
+              Thank you, <b>{name}</b>. Click the button below to view the official brochure for <b>{project.title}</b>. Our desk will also WhatsApp you full unit floor plans on <b>+91 {phone}</b>.
             </p>
 
             <div style={{
@@ -157,15 +153,27 @@ export default function BrochureModal({ isOpen, onClose, project }) {
               </div>
             </div>
 
-            <button 
-              type="button"
+            <a 
+              href={project.brochurePdf}
+              {...(!project.brochurePdf?.startsWith('http') ? { download: `${project.title} Brochure.pdf` } : {})}
+              target="_blank"
+              rel="noopener noreferrer"
               className="card-cta-btn" 
-              style={{ width: '100%', marginBottom: '10px', padding: '12px', fontSize: '0.92rem' }}
-              onClick={triggerDownload}
+              style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                gap: '8px', 
+                width: '100%', 
+                marginBottom: '10px', 
+                padding: '12px', 
+                fontSize: '0.94rem',
+                textDecoration: 'none'
+              }}
             >
-              <Download size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
-              Open / Download Brochure Again
-            </button>
+              <Download size={16} />
+              Open / Download Brochure Now
+            </a>
 
             <button 
               type="button"

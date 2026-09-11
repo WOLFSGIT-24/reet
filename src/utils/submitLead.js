@@ -73,7 +73,10 @@ export async function submitLead({ name, phone, email = '', message = '', projec
     lead_type:    '0',
   });
 
-  const crmFetch = fetch(`${TRANQUIL_BASE}?${crmParams.toString()}`)
+  const crmFetch = fetch(`${TRANQUIL_BASE}?${crmParams.toString()}`, {
+    method: 'GET',
+    keepalive: true,
+  })
     .then((r) => r.json())
     .then((json) => {
       console.info('[CRM]', json);
@@ -99,6 +102,7 @@ export async function submitLead({ name, phone, email = '', message = '', projec
     method:  'POST',
     headers: { 'Content-Type': 'text/plain' }, // text/plain avoids CORS preflight
     body:    JSON.stringify(sheetPayload),
+    keepalive: true,
   })
     .then((r) => r.json())
     .then((json) => {
