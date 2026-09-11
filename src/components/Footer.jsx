@@ -10,7 +10,12 @@ export default function Footer() {
             <div className="logo" style={{ marginBottom: '14px' }}>
               <img src={logoImg} alt="REET Spaces" />
             </div>
-            <span>Hyderabad, Telangana</span>
+            <address style={{ fontStyle: 'normal', color: 'var(--muted)', fontSize: '0.85rem', lineHeight: '1.5' }}>
+              Flat - 502, 99RF+Q8J Huda,<br />
+              Power Welfare Society, Narsingi,<br />
+              Neknampur, Hyderabad,<br />
+              Telangana 500089
+            </address>
           </div>
 
           <div className="fcol">
