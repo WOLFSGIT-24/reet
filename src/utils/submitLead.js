@@ -13,14 +13,14 @@ const SHEET_WEBHOOK_URL = import.meta.env.VITE_SHEET_WEBHOOK_URL;
  * Falls back to 1 (generic "Reet") if no match found.
  */
 const PROJECT_ID_MAP = {
-  'CINQ by Raghava':          12, // closest match → Raghava Linq family; update if Tranquil adds CINQ
+  'CINQ by Raghava':          24, // Raghava Cinq
   'The Cascades, Neopolis':   5,  // GHR CASCADES
-  'Avira by AVR':             15, // Standalone Apartments (no exact match – update if added)
-  'Altus by Hallmark':        15,
+  'Avira by AVR':             26, // Avira by AVR
+  'Altus by Hallmark':        27, // Altus by Hallmark
   'Linq by Raghava':          12, // Raghava Linq
-  'Halo by Raghava':          12,
-  'Globus Luxury Villas':     2,  // Villa
-  'Acasa by Simchah':         15,
+  'Halo by Raghava':          25, // Raghava Halo
+  'Globus Luxury Villas':     23, // Globus Luxury Villa
+  'Acasa by Simchah':         28, // Acasa by Simchah
 };
 
 /**
