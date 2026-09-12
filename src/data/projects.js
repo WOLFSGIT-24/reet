@@ -106,9 +106,9 @@ export const PROJECTS_DATA = [
     builderPrice: '₹2.35 Cr',
     builderPriceMin: 2.35,
     builderPriceMax: 2.35,
-    groupPrice: '₹1.49 Cr',
-    groupPriceMin: 1.49,
-    groupPriceMax: 1.49,
+    groupPrice: '₹2 Cr',
+    groupPriceMin: 2.00,
+    groupPriceMax: 2.00,
     minGroupPill: 'Min. group: 4 villas',
     image: '/Globus Luxury Villas.webp'
   },

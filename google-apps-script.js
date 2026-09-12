@@ -9,18 +9,18 @@
 //      Execute as: Me
 //      Who has access: Anyone
 //   5. Click Deploy → copy the Web App URL
-//   6. Paste that URL into src/utils/submitLead.js → SHEET_WEBHOOK_URL
+//   6. Paste that URL into src/utils/submitLead.js → VITE_SHEET_WEBHOOK_URL
 // ═══════════════════════════════════════════════════════════════════════════
 
-const SHEET_NAME  = 'Leads';   // Tab name — change if yours is different
-const HEADER_ROW  = [
-  'Timestamp (IST)',
-  'Name',
-  'Mobile',        // Always 10-digit, +91 stripped
-  'Email',
-  'Project',
-  'Message / Requirement',
-  'Source',
+const SHEET_NAME = 'Leads';   // Tab name — change if yours is different
+const HEADER_ROW = [
+  'Timestamp (IST)',        // A
+  'Name',                   // B
+  'Mobile',                 // C — always clean 10-digit
+  'Email',                  // D
+  'Project',                // E
+  'Message / Requirement',  // F
+  'Source',                 // G — ContactForm | BrochureDownloadPopup | JoinGroupModal | BrochureModal
 ];
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -41,7 +41,8 @@ function sanitizeMobile(raw) {
 }
 
 /**
- * Returns (and creates if needed) the Leads sheet with a header row.
+ * Returns (and creates if needed) the Leads sheet.
+ * Also writes + styles the header row if row 1 is blank.
  */
 function getOrCreateSheet() {
   var ss    = SpreadsheetApp.getActiveSpreadsheet();
@@ -49,7 +50,12 @@ function getOrCreateSheet() {
 
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(HEADER_ROW);
+  }
+
+  // Write header if row 1, col 1 is empty (handles both new & existing sheets)
+  var firstCell = sheet.getRange(1, 1).getValue();
+  if (!firstCell || firstCell.toString().trim() === '') {
+    sheet.getRange(1, 1, 1, HEADER_ROW.length).setValues([HEADER_ROW]);
 
     // Style the header
     var headerRange = sheet.getRange(1, 1, 1, HEADER_ROW.length);
@@ -64,8 +70,8 @@ function getOrCreateSheet() {
     sheet.setColumnWidth(3, 120); // Mobile
     sheet.setColumnWidth(4, 200); // Email
     sheet.setColumnWidth(5, 200); // Project
-    sheet.setColumnWidth(6, 300); // Message
-    sheet.setColumnWidth(7, 140); // Source
+    sheet.setColumnWidth(6, 320); // Message / Requirement
+    sheet.setColumnWidth(7, 180); // Source
   }
 
   return sheet;
@@ -77,6 +83,7 @@ function doPost(e) {
   try {
     var payload = JSON.parse(e.postData.contents);
 
+    // Accept both 'mobile' and 'phone' keys for compatibility
     var mobile = sanitizeMobile(payload.mobile || payload.phone || '');
 
     // Basic validation — reject if mobile is not 10 digits
@@ -89,13 +96,13 @@ function doPost(e) {
     var sheet = getOrCreateSheet();
 
     sheet.appendRow([
-      payload.timestamp  || new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-      payload.name       || '',
+      payload.timestamp || new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      payload.name      || '',
       mobile,
-      payload.email      || '',
-      payload.project    || '',
-      payload.message    || '',
-      payload.source     || '',
+      payload.email     || '',
+      payload.project   || '',
+      payload.message   || '',
+      payload.source    || '',
     ]);
 
     return ContentService
@@ -114,4 +121,12 @@ function doGet(e) {
   return ContentService
     .createTextOutput(JSON.stringify({ result: 'ok', msg: 'REET Spaces Sheet webhook is live.' }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ── One-time helper — run this manually once from Apps Script editor ─────────
+// Select this function in the dropdown and click ▶ Run to insert the header
+// into your existing sheet. Safe to run multiple times (only acts if row 1 is empty).
+function insertHeaderNow() {
+  getOrCreateSheet();
+  SpreadsheetApp.getActiveSpreadsheet().toast('Header row written to "' + SHEET_NAME + '"!', 'REET Spaces', 4);
 }
