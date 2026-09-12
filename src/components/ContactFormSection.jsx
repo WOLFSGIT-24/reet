@@ -3,6 +3,7 @@ import { PROJECTS_DATA } from '../data/projects';
 import { submitLead } from '../utils/submitLead';
 
 export default function ContactFormSection({ selectedAction }) {
+  const [selectedProjectId, setSelectedProjectId] = useState(PROJECTS_DATA[0].id);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -15,14 +16,19 @@ export default function ContactFormSection({ selectedAction }) {
   useEffect(() => {
     if (selectedAction && selectedAction.project) {
       const { project, type } = selectedAction;
+      setSubmitted(false);
+      setSubmitting(false);
+      setSelectedProjectId(project.id);
       if (type === 'brochure') {
         setMessage(`Requesting brochure & floor plans for ${project.title} (${project.location}).`);
       } else {
         setMessage(`Interested in joining group deal for ${project.title} (${project.location}).`);
       }
-      if (nameInputRef.current) {
-        nameInputRef.current.focus();
-      }
+      setTimeout(() => {
+        if (nameInputRef.current) {
+          nameInputRef.current.focus();
+        }
+      }, 150);
     }
   }, [selectedAction]);
 
@@ -36,6 +42,17 @@ export default function ContactFormSection({ selectedAction }) {
     // Only numeric digits, max 10 characters
     const val = e.target.value.replace(/\D/g, '').slice(0, 10);
     setPhone(val);
+  };
+
+  const handleProjectChange = (e) => {
+    const pid = e.target.value;
+    setSelectedProjectId(pid);
+    const proj = PROJECTS_DATA.find((p) => p.id === pid);
+    if (proj) {
+      setMessage(`Interested in joining group deal for ${proj.title} (${proj.location}).`);
+    } else {
+      setMessage('General inquiry for Hyderabad luxury group-buy portfolio.');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -52,8 +69,9 @@ export default function ContactFormSection({ selectedAction }) {
       return;
     }
 
-    // Extract project title from the pre-filled message if present
-    const projectTitle = selectedAction?.project?.title ?? '';
+    // Extract chosen project title
+    const chosenProject = PROJECTS_DATA.find((p) => p.id === selectedProjectId);
+    const projectTitle = chosenProject ? chosenProject.title : (selectedAction?.project?.title ?? 'General Inquiry');
 
     // Instantly transition to registered confirmation
     setSubmitted(true);
@@ -74,11 +92,14 @@ export default function ContactFormSection({ selectedAction }) {
     setSubmitted(false);
     setSubmitting(false);
     setSubmitError(false);
+    setSelectedProjectId(PROJECTS_DATA[0].id);
     setName('');
     setPhone('');
     setEmail('');
     setMessage('');
   };
+
+  const currentChosenProject = PROJECTS_DATA.find((p) => p.id === selectedProjectId);
 
   return (
     <section className="section" id="contact-form">
@@ -101,10 +122,11 @@ export default function ContactFormSection({ selectedAction }) {
                 <div className="success-badge">Request Registered</div>
                 <h3>Thank you, {name}</h3>
                 <p>
-                  Your inquiry has been received. Sunny Sahay will reach out directly on <b>+91 {phone}</b> to discuss shortlisted projects and active group lock terms.
+                  Your inquiry has been received for <b>{currentChosenProject ? currentChosenProject.title : 'REET Spaces'}</b>. Sunny Sahay will reach out directly on <b>+91 {phone}</b> to discuss shortlisted projects and active group lock terms.
                 </p>
 
                 <div className="success-summary">
+                  <div><span>Selected Project:</span> <b className="gold">{currentChosenProject ? currentChosenProject.title : 'General Portfolio'}</b></div>
                   <div><span>Direct Desk:</span> <b className="gold">Sunny Sahay (+91 91824 19241)</b></div>
                 </div>
 
@@ -118,6 +140,22 @@ export default function ContactFormSection({ selectedAction }) {
                 <p style={{ color: 'var(--muted)', fontSize: '0.86rem', marginBottom: '22px' }}>
                   No upfront commitments. 100% direct developer billing and zero buyer fees.
                 </p>
+
+                <div className="form-field">
+                  <label>Selected Project *</label>
+                  <select 
+                    value={selectedProjectId} 
+                    onChange={handleProjectChange}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {PROJECTS_DATA.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.title} ({p.location}) — REET Price: {p.groupPrice}
+                      </option>
+                    ))}
+                    <option value="general">Other / General Portfolio Consultation</option>
+                  </select>
+                </div>
 
                 <div className="form-row-2">
                   <div className="form-field">
